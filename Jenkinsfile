@@ -9,9 +9,9 @@ pipeline {
     stages {
         stage('Upload to S3') {
             steps {
-                // Загрузка файлов из репозитория GitHub в S3
+                // Загрузка файлов из текущей директории в S3
                 script {
-			s3Upload(includePathPattern: '**/*', bucket: 'katsko-bucket', path: './*', credentials: env.S3_CREDENTIALS, region: 'eu-north-1')
+                    s3Upload(path: '**/*', bucket: 'katsko-bucket', includePathPattern: './*', region: 'eu-north-1')
                 }
             }
         }
