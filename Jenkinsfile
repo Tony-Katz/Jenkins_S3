@@ -11,7 +11,7 @@ pipeline {
             steps {
                 // Загрузка файлов из репозитория GitHub в S3
                 script {
-                    s3Upload(includePathPattern: '**/*', bucket: 'your-s3-bucket-name', path: 'path/to/your/files/in/s3/', credentials: env.S3_CREDENTIALS)
+			s3Upload(includePathPattern: '**/*', bucket: 'katsko-bucket', path: './*', credentials: env.S3_CREDENTIALS, region: 'eu-north-1')
                 }
             }
         }
