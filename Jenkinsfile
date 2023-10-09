@@ -9,9 +9,9 @@ pipeline {
     stages {
         stage('Upload to S3') {
             steps {
-                // Загрузка файлов из текущей директории в S3
+                // Загрузка файлов из текущей директории в корень S3 bucket
                 script {
-                    s3Upload(path: '**/*', bucket: 'katsko-bucket', region: 'eu-north-1')
+                    s3Upload(path: '.', bucket: 'katsko-bucket', includePathPattern: '**/*', region: 'eu-north-1')
                 }
             }
         }
