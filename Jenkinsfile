@@ -18,7 +18,10 @@ pipeline {
         
         stage('Upload to AWS S3') {
             steps {
-                sh '/usr/local/bin/aws s3 cp . s3://katsko-bucket/ --recursive --region eu-north-1'
+                script {
+                    def awsCliPath = sh(script: 'which aws', returnStdout: true).trim()
+                    sh "${awsCliPath} s3 cp . s3://katsko-bucket/ --recursive --region eu-north-1"
+                }
             }
         }
     }
