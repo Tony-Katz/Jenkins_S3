@@ -6,11 +6,22 @@ pipeline {
         THE_BUTLER_SAYS_SO = credentials('Jenkins-credentials')
     }
 
+    stages {
         stage('Deploy to S3') {
             steps {
                 echo "Deploying"
                 sh 'aws s3 cp ./ s3://katsko-bucket/ --recursive'
             }
         }
+    }
+
+    post {
+        success {
+            echo "Success"
+        }
+        failure {
+            echo "Failure"
+        }
+    }
 }
 
