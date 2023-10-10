@@ -17,8 +17,8 @@ pipeline {
                         includePathPattern: './*',
                         region: 'eu-north-1',
                         credentials: [
-                            awsAccessKeyId: credentials('Jenkins-cred').AWS_ACCESS_KEY_ID,
-                            awsSecretKey: credentials('Jenkins-cred').AWS_SECRET_ACCESS_KEY
+                            awsAccessKeyId: credentials('Jenkins-credentials').AWS_ACCESS_KEY_ID,
+                            awsSecretKey: credentials('Jenkins-credentials').AWS_SECRET_ACCESS_KEY
                         ]
                     ]
 
