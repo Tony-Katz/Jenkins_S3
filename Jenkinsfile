@@ -9,9 +9,13 @@ pipeline {
     stages {
         stage('Upload to S3') {
             steps {
-                // Загрузка файлов из текущей директории в корень S3 bucket
                 script {
-                    s3Upload(path: '.', bucket: 'katsko-bucket', includePathPattern: '**/*', region: 'eu-north-1')
+                    // Определите файлы и папки для загрузки в S3 bucket
+                    def s3Entries = [
+                        [sourceFile: '**/*']
+                    ]
+                    // Выполнение плагина S3 Publisher с использованием профиля и настройками
+                    s3BucketPublish(profileName: 'Jenkins-cred', entries: s3Entries)
                 }
             }
         }
