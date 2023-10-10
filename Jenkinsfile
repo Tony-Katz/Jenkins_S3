@@ -6,19 +6,6 @@ pipeline {
         THE_BUTLER_SAYS_SO = credentials('Jenkins-credentials')
     }
 
-    stages {
-        stage('Build') {
-            steps {
-                echo "Building stage"
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo "Testing stage"
-            }
-        }
-
         stage('Deploy to S3') {
             steps {
                 echo "Deploying"
@@ -27,13 +14,5 @@ pipeline {
         }
     }
 
-    post {
-        success {
-            echo "Success"
-        }
-        failure {
-            echo "Failure"
-        }
-    }
 }
 
