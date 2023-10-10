@@ -1,16 +1,28 @@
 pipeline {
     agent any
 
-    environment {
-        // Имя учетных данных AWS S3, которые вы создали ранее
-        S4_CREDENTIALS = credentials('Jenkins-cred')
-    }
-
     stages {
+        stage('Checkout SCM') {
+            steps {
+                checkout scm
+            }
+        }
+
         stage('Upload to S3') {
             steps {
                 script {
-                    s3Upload(path: '', bucket: 'katsko-bucket', includePathPattern: './*', region: 'eu-north-1', credentials: S3_CREDENTIALS)
+                    def s3UploadOpts = [
+                        path: '', // Ваш путь к файлам для загрузки
+                        bucket: 'katsko-bucket',
+                        includePathPattern: './*',
+                        region: 'eu-north-1',
+                        credentials: [
+                            awsAccessKeyId: credentials('Jenkins-cred').AWS_ACCESS_KEY_ID,
+                            awsSecretKey: credentials('Jenkins-cred').AWS_SECRET_ACCESS_KEY
+                        ]
+                    ]
+
+                    s3Upload(s3UploadOpts)
                 }
             }
         }
