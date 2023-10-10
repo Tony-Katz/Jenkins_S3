@@ -12,7 +12,5 @@ pipeline {
                 sh 'aws s3 cp ./ s3://katsko-bucket/ --recursive'
             }
         }
-    }
-
 }
 
