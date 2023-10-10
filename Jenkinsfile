@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Имя учетных данных AWS S3, которые вы создали ранее
-        S3_CREDENTIALS = credentials('Jenkins-cred')
+        S4_CREDENTIALS = credentials('Jenkins-cred')
     }
 
     stages {
