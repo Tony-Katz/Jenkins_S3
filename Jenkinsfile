@@ -2,27 +2,37 @@ pipeline {
     agent any
 
     environment {
-        // Имя учетных данных AWS S3, которые вы создали ранее
-        S3_CREDENTIALS = credentials('Jenkins-credentials')
+        AWS_DEFAULT_REGION = "eu-north-1"
+        THE_BUTLER_SAYS_SO = credentials('Jenkins-credentials')
     }
 
     stages {
-        stage('Upload to S3') {
+        stage('Build') {
             steps {
-                // Загрузка файлов из репозитория GitHub в корневую папку S3
-                script {
-                    def s3Bucket = 'katsko-bucket' // Укажите имя вашего S3 бакета
-                    def s3Path = '/' // Используйте '/' для загрузки в корневую папку
-
-                    s3Upload(
-                        bucket: s3Bucket,
-                        includePathPattern: '**/*',
-                        path: s3Path,
-                        credentials: env.S3_CREDENTIALS,
-                        region: 'eu-north-1'
-                    )
-                }
+                echo "Building stage"
             }
+        }
+
+        stage('Test') {
+            steps {
+                echo "Testing stage"
+            }
+        }
+
+        stage('Deploy to S3') {
+            steps {
+                echo "Deploying"
+                sh 'aws s3 cp ./ s3://katsko-bucket/ --recursive'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Success"
+        }
+        failure {
+            echo "Failure"
         }
     }
 }
